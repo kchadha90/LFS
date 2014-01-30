@@ -1,0 +1,35 @@
+//physical structures
+package lfs.physical;
+
+message Superblock {
+  optional fixed32 version = 1;//LFS version, contains '1'
+  optional fixed32 noctet_sector = 2;//count of octets per sector
+  optional fixed32 nsector_blk = 3;//count of sectors per block
+  optional fixed32 nblk_seg = 4;//count of blocks per segment
+  optional fixed32 nseg_disk = 5;//count of segments on the disk
+  optional fixed32 first_logseg = 6;//first log segment number
+  repeated fixed32 checkpoint_seg = 7;//start segment number of checkpoints
+  optional fixed32 nseg_checkpoint = 9;//count of segments per checkpoint
+  optional fixed32 nblk_segsummary = 8;//count of segment summary blocks per segment
+}
+
+message InodeSimp {//simple inode for special files
+  optional fixed64 size = 1;//size in octets
+  repeated fixed64 blkptr = 2;//block pointers [Inode::kNBlks]
+  optional fixed32 ver = 3;//version
+}
+
+message SegUsageRec {//segment usage table record
+  optional fixed32 nblk_live = 1;//count of live blocks
+  optional fixed64 mtime = 2;//most recent data creation time
+}
+
+message Checkpoint {
+  optional fixed64 timestamp = 1;//timestamp of writing checkpoint
+  optional fixed32 next_seg = 2;//next segment number
+  optional InodeSimp inode_inomap = 3;//inode of inode bitmap
+  optional InodeSimp inode_inovec = 4;//inode of inode vector
+  optional InodeSimp inode_inotbl = 5;//inode of inode table
+  repeated SegUsageRec segusage = 6;//segment usage table
+}
+

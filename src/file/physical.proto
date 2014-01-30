@@ -1,0 +1,16 @@
+//physical structures
+package lfs.physical;
+
+message InodeTblEntry {
+  optional uint32 mode = 1;//file type and permission
+  optional uint32 nlink = 2;//number of filenames associated with this inode
+  optional fixed32 uid = 3;//owner user id
+  optional fixed32 gid = 4;//owner group id
+  optional uint64 size = 5;//file length in octets
+  optional uint32 blocks = 6;//count of data blocks allocated to this file
+  optional fixed64 mtime = 7;//modify datetime
+  optional fixed64 ctime = 8;//status change datetime
+  repeated fixed64 blkptr = 9;//12 block pointers, one singly indirect pointer, one doubly indirect pointer, one triply indirect pointer
+  optional bytes body = 10;//file body if fits
+}
+

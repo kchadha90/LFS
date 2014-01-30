@@ -1,0 +1,23 @@
+//physical structures
+package lfs.physical;
+
+message DirFileRec {
+  optional uint32 ino = 1;
+  optional string name = 2;
+}
+
+message DirFile {
+  repeated DirFileRec rec = 1;
+}
+
+message DirChRec {
+  optional uint32 ino = 1;
+  optional string name = 2;
+  enum Operation {
+    NONE = 0;
+    ADD = 1;
+    REMOVE = 2;
+  }
+  optional Operation op = 3;
+}
+
